@@ -49,12 +49,15 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libboost-program-options-dev \ 
     libboost-test-dev \
     ros-humble-camera-info-manager \ 
-    ros-humble-image-geometry
+    ros-humble-image-geometry \
+    ros-humble-image-proc \
+    ros-humble-tracetools-image-pipeline 
+    
 
 #create workspace
 RUN mkdir -p /colcon_ws/src
 
-RUN cd /colcon_ws && git clone -b stereo_humble https://github.com/Michal-Bidzinski/image_pipeline.git
+RUN cd /colcon_ws/src && git clone -b stereo_humble https://github.com/Michal-Bidzinski/image_pipeline.git
 
 RUN /bin/bash -c '. /opt/ros/humble/setup.bash; cd /colcon_ws; colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=On -Wall -Wextra -Wpedantic'
 
